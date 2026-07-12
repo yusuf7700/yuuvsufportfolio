@@ -25,53 +25,53 @@
    kengaytmani almashtiring — bu ham shunchaki matn tahriri.
    ========================================================= */
 
-   const PORTFOLIO_DATA = {
+const PORTFOLIO_DATA = {
 
-    websites: [
-      { title: "PlannerY", type: "image", src: "assets/saytlar/PlannerY.jpg", link: "" }
+  websites: [
+    { title: "PlannerY", type: "image", src: "assets/saytlar/PlannerY.jpg", link: "https://planner-y1.vercel.app/" }
+  ],
+
+  design: {
+    posterlar: [
+      { title: "Honor",   type: "image", src: "assets/dizayn/posterlar/honor.jpg" },
+      { title: "Dinay",   type: "image", src: "assets/dizayn/posterlar/dinay.jpg" },
+      { title: "ASU",     type: "image", src: "assets/dizayn/posterlar/asu.jpg" },
+      { title: "Malibu",  type: "image", src: "assets/dizayn/posterlar/malibu.jpg" },
+      { title: "ASU 2",   type: "image", src: "assets/dizayn/posterlar/asu2.jpg" },
+      { title: "Dena",    type: "image", src: "assets/dizayn/posterlar/dena.jpg" },
+      { title: "Porsche", type: "image", src: "assets/dizayn/posterlar/porsche.jpg" }
     ],
-  
-    design: {
-      posterlar: [
-        { title: "Honor",   type: "image", src: "assets/dizayn/posterlar/honor.jpg" },
-        { title: "Dinay",   type: "image", src: "assets/dizayn/posterlar/dinay.jpg" },
-        { title: "ASU",     type: "image", src: "assets/dizayn/posterlar/asu.jpg" },
-        { title: "Malibu",  type: "image", src: "assets/dizayn/posterlar/malibu.jpg" },
-        { title: "ASU 2",   type: "image", src: "assets/dizayn/posterlar/asu2.jpg" },
-        { title: "Dena",    type: "image", src: "assets/dizayn/posterlar/dena.jpg" },
-        { title: "Porsche", type: "image", src: "assets/dizayn/posterlar/porsche.jpg" }
-      ],
-      muqovalar: [
-        { title: "Miswak",              type: "image", src: "assets/dizayn/muqovalar/miswak.jpg" },
-        { title: "Arab tili va ustoz",  type: "image", src: "assets/dizayn/muqovalar/arabtilivaustoz.jpg" },
-        { title: "Fusxa",               type: "image", src: "assets/dizayn/muqovalar/fusxa.jpg" },
-        { title: "JCH",                 type: "image", src: "assets/dizayn/muqovalar/jch.jpg" },
-        { title: "Coffee",              type: "image", src: "assets/dizayn/muqovalar/coffee.jpg" },
-        { title: "Ovqat",               type: "image", src: "assets/dizayn/muqovalar/ovqat.jpg" },
-        { title: "Xarizma",             type: "image", src: "assets/dizayn/muqovalar/xarizma.jpg" },
-        { title: "Arab ChatGPT",        type: "image", src: "assets/dizayn/muqovalar/arabchatgpt.jpg" },
-        { title: "Olma banan",          type: "image", src: "assets/dizayn/muqovalar/olmabanan.jpg" },
-        { title: "2-o'yin natija",      type: "image", src: "assets/dizayn/muqovalar/2oynatija.jpg" }
-      ],
-      avatarlar: [
-        { title: "Y. Yunusov", type: "image", src: "assets/dizayn/avatarlar/yyunusov.jpg" },
-        { title: "Mahmudov",   type: "image", src: "assets/dizayn/avatarlar/mahmudov.jpg" },
-        { title: "Aminya",     type: "image", src: "assets/dizayn/avatarlar/amiyna.jpg" },
-        { title: "Mustafo",    type: "image", src: "assets/dizayn/avatarlar/mustafo.jpg" }
-      ]
-    },
-  
-    aivideo: {
-      reels: [
-        { title: "Cloud 6", type: "video", src: "assets/aivideolar/reels/cloud6.mp4" },
-        { title: "Moxitos", type: "video", src: "assets/aivideolar/reels/moxitos.mp4" },
-        { title: "Result",  type: "video", src: "assets/aivideolar/reels/result.mp4" },
-        { title: "Ice",     type: "video", src: "assets/aivideolar/reels/ice.mp4" }
-      ],
-      multfilmlar: [
-        { title: "Hayit multfilmi", type: "video", src: "https://youtu.be/_gI2S_ifCQQ?si=EQZ5zqg8mJslEwQe" },
-        { title: "Non multfilmi",   type: "video", src: "https://youtu.be/VYa0Ul9dVWo?si=2HcUlpp4Ip_fywXj" }
-      ]
-    }
-  
-  };
+    muqovalar: [
+      { title: "Miswak",              type: "image", src: "assets/dizayn/muqovalar/miswak.jpg" },
+      { title: "Arab tili va ustoz",  type: "image", src: "assets/dizayn/muqovalar/arabtilivaustoz.jpg" },
+      { title: "Fusxa",               type: "image", src: "assets/dizayn/muqovalar/fusxa.jpg" },
+      { title: "JCH",                 type: "image", src: "assets/dizayn/muqovalar/jch.jpg" },
+      { title: "Coffee",              type: "image", src: "assets/dizayn/muqovalar/coffee.jpg" },
+      { title: "Ovqat",               type: "image", src: "assets/dizayn/muqovalar/ovqat.jpg" },
+      { title: "Xarizma",             type: "image", src: "assets/dizayn/muqovalar/xarizma.jpg" },
+      { title: "Arab ChatGPT",        type: "image", src: "assets/dizayn/muqovalar/arabchatgpt.jpg" },
+      { title: "Olma banan",          type: "image", src: "assets/dizayn/muqovalar/olmabanan.jpg" },
+      { title: "2-o'yin natija",      type: "image", src: "assets/dizayn/muqovalar/2oynatija.jpg" }
+    ],
+    avatarlar: [
+      { title: "Y. Yunusov", type: "image", src: "assets/dizayn/avatarlar/yyunusov.jpg" },
+      { title: "Mahmudov",   type: "image", src: "assets/dizayn/avatarlar/mahmudov.jpg" },
+      { title: "Aminya",     type: "image", src: "assets/dizayn/avatarlar/amiyna.jpg" },
+      { title: "Mustafo",    type: "image", src: "assets/dizayn/avatarlar/mustafo.jpg" }
+    ]
+  },
+
+  aivideo: {
+    reels: [
+      { title: "Cloud 6", type: "video", src: "assets/aivideolar/reels/cloud6.mp4" },
+      { title: "Moxitos", type: "video", src: "assets/aivideolar/reels/moxitos.mp4" },
+      { title: "Result",  type: "video", src: "assets/aivideolar/reels/result.mp4" },
+      { title: "Ice",     type: "video", src: "assets/aivideolar/reels/ice.mp4" }
+    ],
+    multfilmlar: [
+      { title: "Hayit multfilmi", type: "youtube", link: "https://youtu.be/_gI2S_ifCQQ" },
+      { title: "Non multfilmi",   type: "youtube", link: "https://youtu.be/VYa0Ul9dVWo" }
+    ]
+  }
+
+};
