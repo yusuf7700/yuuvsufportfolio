@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuuvsuf — Admin</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portfolio.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body data-theme="dark">
+
+<div class="ambient"></div>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="portfolio.html" class="brand">
+      <img src="logo.png" alt="Yuuvsuf logo" class="brand-mark">
+      Yuuvsuf <span style="color:var(--text-mid); font-weight:400; font-size:.8rem;">/ admin</span>
+    </a>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" id="logoutBtn" style="display:none;">Chiqish</button>
+    </div>
+  </div>
+</header>
+
+<main class="container admin-shell">
+
+  <!-- config warning -->
+  <div id="configWarning" class="glass note-card" style="display:none; margin-block:24px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+    <span><code>supabase-config.js</code> hali sozlanmagan. SETUP.md faylidagi qadamlarni bajaring, so'ng bu sahifani qayta yuklang.</span>
+  </div>
+
+  <!-- login -->
+  <section id="loginScreen" class="login-wrap">
+    <div class="glass login-card">
+      <span class="eyebrow">Admin kirish</span>
+      <h2>Xush kelibsiz</h2>
+      <p class="muted">Faqat oldindan qo'shilgan admin hisoblari kira oladi.</p>
+      <form id="loginForm">
+        <label>Email
+          <input type="email" id="loginEmail" required autocomplete="username">
+        </label>
+        <label>Parol
+          <input type="password" id="loginPassword" required autocomplete="current-password">
+        </label>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Kirish</button>
+        <p id="loginError" class="error-text"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- dashboard -->
+  <section id="dashboard" class="dashboard" style="display:none;">
+
+    <div class="panel-head">
+      <span class="eyebrow">Yangi ish qo'shish</span>
+      <h2>Rasm yoki video yuklash</h2>
+      <p>Kategoriyani tanlang, faylni tanlang, nom yozing — tayyor.</p>
+    </div>
+
+    <form id="uploadForm" class="glass upload-form">
+      <div class="field-row">
+        <label>Kategoriya
+          <select id="fCategory" required>
+            <option value="websites">Saytlar</option>
+            <option value="design:posterlar">Dizayn — Posterlar</option>
+            <option value="design:muqovalar">Dizayn — Muqovalar</option>
+            <option value="design:avatarlar">Dizayn — Avatarlar</option>
+            <option value="aivideo:reels">AI Video — Reels</option>
+            <option value="aivideo:multfilmlar">AI Video — Multfilmlar</option>
+          </select>
+        </label>
+        <label>Nomi
+          <input type="text" id="fTitle" placeholder="Masalan: Yangi poster" required>
+        </label>
+      </div>
+      <div class="field-row">
+        <label>Fayl (rasm yoki video)
+          <input type="file" id="fFile" accept="image/*,video/*" required>
+        </label>
+        <label>Havola (ixtiyoriy)
+          <input type="url" id="fLink" placeholder="https://...">
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary" id="uploadBtn">Yuklash</button>
+      <p id="uploadStatus" class="status-text"></p>
+    </form>
+
+    <div class="panel-head" style="margin-top:56px;">
+      <span class="eyebrow">Mavjud ishlar</span>
+      <h2>Qo'shilgan kontent</h2>
+      <p>O'chirish uchun kartochka ustidagi tugmani bosing.</p>
+    </div>
+    <div id="itemsList" class="items-list"></div>
+
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
