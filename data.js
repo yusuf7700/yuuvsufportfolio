@@ -69,8 +69,8 @@
         { title: "Ice",     type: "video", src: "assets/aivideolar/reels/ice.mp4" }
       ],
       multfilmlar: [
-        { title: "Hayit multfilmi", type: "video", src: "assets/aivideolar/multfilmlar/hayitmultfilm.mp4" },
-        { title: "Non multfilmi",   type: "video", src: "assets/aivideolar/multfilmlar/nonmultfilm.mp4" }
+        { title: "Hayit multfilmi", type: "video", src: "https://youtu.be/_gI2S_ifCQQ?si=EQZ5zqg8mJslEwQe" },
+        { title: "Non multfilmi",   type: "video", src: "https://youtu.be/VYa0Ul9dVWo?si=2HcUlpp4Ip_fywXj" }
       ]
     }
   
