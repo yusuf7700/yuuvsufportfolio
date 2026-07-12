@@ -203,7 +203,16 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAll(PORTFOLIO_DATA); // instant local fallback so the page never looks empty
   }
   loadRemoteData().then(remote => {
-    if (remote) renderAll(remote); // replace with live data once it arrives
+    if (!remote) return;
+    // merge: use remote items for a section only if that section actually has content;
+    // otherwise keep showing the local data.js placeholder for that section.
+    document.querySelectorAll('[data-render]').forEach(container => {
+      const path = container.getAttribute('data-render');
+      const remoteItems = getPath(remote, path);
+      if (remoteItems && remoteItems.length){
+        renderGrid(container, remoteItems);
+      }
+    });
   });
 
   function renderAll(source){
