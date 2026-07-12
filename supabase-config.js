@@ -3,8 +3,8 @@
    SETUP.md dagi 2-qadamdan Project URL va anon key ni shu yerga qo'ying.
    ========================================================= */
 
-   const SUPABASE_URL = "YOUR_SUPABASE_URL";
-   const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+   const SUPABASE_URL = "https://xmtzxzfdvtxwuhanlsln.supabase.co/rest/v1/";
+   const SUPABASE_ANON_KEY = "xmtzxzfdvtxwuhanlsln";
    const SUPABASE_BUCKET = "portfolio-media";
    
    // Sozlanganmi yoki yo'qmi — tekshirish uchun
