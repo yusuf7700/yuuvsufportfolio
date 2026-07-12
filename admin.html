@@ -82,7 +82,7 @@
         <label>Fayl (rasm yoki video)
           <input type="file" id="fFile" accept="image/*,video/*" required>
         </label>
-        <label>Havola (ixtiyoriy)
+        <label id="fLinkLabel">Havola (ixtiyoriy)
           <input type="url" id="fLink" placeholder="https://...">
         </label>
       </div>
@@ -93,7 +93,16 @@
     <div class="panel-head" style="margin-top:56px;">
       <span class="eyebrow">Mavjud ishlar</span>
       <h2>Qo'shilgan kontent</h2>
-      <p>O'chirish uchun kartochka ustidagi tugmani bosing.</p>
+      <p>Tahrirlash uchun ✎ tugmasini, o'chirish uchun ✕ tugmasini bosing.</p>
+    </div>
+    <div class="tab-buttons" id="itemFilters">
+      <button class="tab-btn active" data-filter="all">Hammasi</button>
+      <button class="tab-btn" data-filter="websites">Saytlar</button>
+      <button class="tab-btn" data-filter="design:posterlar">Posterlar</button>
+      <button class="tab-btn" data-filter="design:muqovalar">Muqovalar</button>
+      <button class="tab-btn" data-filter="design:avatarlar">Avatarlar</button>
+      <button class="tab-btn" data-filter="aivideo:reels">Reels</button>
+      <button class="tab-btn" data-filter="aivideo:multfilmlar">Multfilmlar</button>
     </div>
     <div id="itemsList" class="items-list"></div>
 
