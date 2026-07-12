@@ -1,10 +1,9 @@
 /* =========================================================
    SUPABASE SOZLAMALARI
-   SETUP.md dagi 2-qadamdan Project URL va anon key ni shu yerga qo'ying.
    ========================================================= */
 
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "https://xmtzxzfdvtxwuhanlsln.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_Nq3BzinWVqMY3yiqB8H2YQ_d2EA47Yj";
 const SUPABASE_BUCKET = "portfolio-media";
 
 // Sozlanganmi yoki yo'qmi — tekshirish uchun
