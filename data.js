@@ -28,7 +28,7 @@
 const PORTFOLIO_DATA = {
 
   websites: [
-    { title: "PlannerY", type: "image", src: "assets/saytlar/PlannerY.jpg", link: "https://planner-y1.vercel.app/" }
+    { title: "PlannerY", type: "image", src: "assets/saytlar/PlannerY.png", link: "https://planner-y1.vercel.app/" }
   ],
 
   design: {
