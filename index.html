@@ -107,13 +107,13 @@
         </div>
         <div class="tab-panels">
           <div class="tab-panel active" data-tab-panel="posters">
-            <div class="grid cols-4" data-render="design.posterlar"></div>
+            <div class="grid cols-4" data-render="design.posterlar" data-aspect="poster"></div>
           </div>
           <div class="tab-panel" data-tab-panel="covers">
-            <div class="grid cols-4" data-render="design.muqovalar"></div>
+            <div class="grid cols-4" data-render="design.muqovalar" data-aspect="cover"></div>
           </div>
           <div class="tab-panel" data-tab-panel="avatars">
-            <div class="grid cols-4" data-render="design.avatarlar"></div>
+            <div class="grid cols-4" data-render="design.avatarlar" data-aspect="avatar"></div>
           </div>
         </div>
       </div>
@@ -133,10 +133,10 @@
         </div>
         <div class="tab-panels">
           <div class="tab-panel active" data-tab-panel="reels">
-            <div class="grid cols-3" data-render="aivideo.reels"></div>
+            <div class="grid cols-3" data-render="aivideo.reels" data-aspect="reel"></div>
           </div>
           <div class="tab-panel" data-tab-panel="cartoons">
-            <div class="grid cols-3" data-render="aivideo.multfilmlar"></div>
+            <div class="grid cols-3" data-render="aivideo.multfilmlar" data-aspect="cover"></div>
           </div>
         </div>
       </div>
@@ -197,6 +197,15 @@
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Yopish">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <div class="lightbox-content" id="lightboxContent"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
 <script src="data.js"></script>
 <script src="portfolio.js"></script>
 </body>
