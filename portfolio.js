@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   loadSiteSettings();
 
-
+  /* ---------- generic tab controller ----------
      Works for the main header nav (controls top-level .tab-panel
      elements inside <main class="tab-shell">) and for any nested
      [data-tabs] block (e.g. Posterlar / Muqovalar / Avatarlar). */
