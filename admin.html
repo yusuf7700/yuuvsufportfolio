@@ -56,55 +56,131 @@
   <!-- dashboard -->
   <section id="dashboard" class="dashboard" style="display:none;">
 
-    <div class="panel-head">
-      <span class="eyebrow">Yangi ish qo'shish</span>
-      <h2>Rasm yoki video yuklash</h2>
-      <p>Kategoriyani tanlang, faylni tanlang, nom yozing — tayyor.</p>
+    <div class="tab-buttons admin-tabs" id="adminTabs">
+      <button class="tab-btn active" data-admin-tab="content">Kontent</button>
+      <button class="tab-btn" data-admin-tab="settings">Sayt sozlamalari</button>
+      <button class="tab-btn" data-admin-tab="stats">Statistika</button>
     </div>
 
-    <form id="uploadForm" class="glass upload-form">
-      <div class="field-row">
-        <label>Kategoriya
-          <select id="fCategory" required>
-            <option value="websites">Saytlar</option>
-            <option value="design:posterlar">Dizayn — Posterlar</option>
-            <option value="design:muqovalar">Dizayn — Muqovalar</option>
-            <option value="design:avatarlar">Dizayn — Avatarlar</option>
-            <option value="aivideo:reels">AI Video — Reels</option>
-            <option value="aivideo:multfilmlar">AI Video — Multfilmlar</option>
-          </select>
-        </label>
-        <label>Nomi
-          <input type="text" id="fTitle" placeholder="Masalan: Yangi poster" required>
-        </label>
-      </div>
-      <div class="field-row">
-        <label>Fayl (rasm yoki video)
-          <input type="file" id="fFile" accept="image/*,video/*" required>
-        </label>
-        <label id="fLinkLabel">Havola (ixtiyoriy)
-          <input type="url" id="fLink" placeholder="https://...">
-        </label>
-      </div>
-      <button type="submit" class="btn btn-primary" id="uploadBtn">Yuklash</button>
-      <p id="uploadStatus" class="status-text"></p>
-    </form>
+    <!-- ===== CONTENT TAB ===== -->
+    <div class="admin-panel active" data-admin-panel="content">
 
-    <div class="panel-head" style="margin-top:56px;">
-      <span class="eyebrow">Mavjud ishlar</span>
-      <h2>Qo'shilgan kontent</h2>
-      <p>Tahrirlash uchun ✎ tugmasini, o'chirish uchun ✕ tugmasini bosing.</p>
+      <div class="panel-head">
+        <span class="eyebrow">Yangi ish qo'shish</span>
+        <h2>Rasm yoki video yuklash</h2>
+        <p>Kategoriyani tanlang, faylni tanlang, nom yozing — tayyor.</p>
+      </div>
+
+      <form id="uploadForm" class="glass upload-form">
+        <div class="field-row">
+          <label>Kategoriya
+            <select id="fCategory" required>
+              <option value="websites">Saytlar</option>
+              <option value="design:posterlar">Dizayn — Posterlar</option>
+              <option value="design:muqovalar">Dizayn — Muqovalar</option>
+              <option value="design:avatarlar">Dizayn — Avatarlar</option>
+              <option value="aivideo:reels">AI Video — Reels</option>
+              <option value="aivideo:multfilmlar">AI Video — Multfilmlar</option>
+            </select>
+          </label>
+          <label>Nomi
+            <input type="text" id="fTitle" placeholder="Masalan: Yangi poster" required>
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Fayl (rasm yoki video)
+            <input type="file" id="fFile" accept="image/*,video/*" required>
+          </label>
+          <label id="fLinkLabel">Havola (ixtiyoriy)
+            <input type="url" id="fLink" placeholder="https://...">
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" id="uploadBtn">Yuklash</button>
+        <p id="uploadStatus" class="status-text"></p>
+      </form>
+
+      <div class="panel-head" style="margin-top:56px;">
+        <span class="eyebrow">Mavjud ishlar</span>
+        <h2>Qo'shilgan kontent</h2>
+        <p>✎ tahrirlash, 👁 yashirish/ko'rsatish, ✕ o'chirish. Kartochkani ushlab boshqa joyga surib tartibni o'zgartirasiz.</p>
+      </div>
+
+      <input type="text" id="itemSearch" class="search-input" placeholder="Nomi bo'yicha qidirish...">
+
+      <div class="tab-buttons" id="itemFilters">
+        <button class="tab-btn active" data-filter="all">Hammasi</button>
+        <button class="tab-btn" data-filter="websites">Saytlar</button>
+        <button class="tab-btn" data-filter="design:posterlar">Posterlar</button>
+        <button class="tab-btn" data-filter="design:muqovalar">Muqovalar</button>
+        <button class="tab-btn" data-filter="design:avatarlar">Avatarlar</button>
+        <button class="tab-btn" data-filter="aivideo:reels">Reels</button>
+        <button class="tab-btn" data-filter="aivideo:multfilmlar">Multfilmlar</button>
+      </div>
+      <div id="itemsList" class="items-list"></div>
     </div>
-    <div class="tab-buttons" id="itemFilters">
-      <button class="tab-btn active" data-filter="all">Hammasi</button>
-      <button class="tab-btn" data-filter="websites">Saytlar</button>
-      <button class="tab-btn" data-filter="design:posterlar">Posterlar</button>
-      <button class="tab-btn" data-filter="design:muqovalar">Muqovalar</button>
-      <button class="tab-btn" data-filter="design:avatarlar">Avatarlar</button>
-      <button class="tab-btn" data-filter="aivideo:reels">Reels</button>
-      <button class="tab-btn" data-filter="aivideo:multfilmlar">Multfilmlar</button>
+
+    <!-- ===== SETTINGS TAB ===== -->
+    <div class="admin-panel" data-admin-panel="settings">
+      <div class="panel-head">
+        <span class="eyebrow">Sayt matnlari</span>
+        <h2>"Men haqimda" va "Aloqa"</h2>
+        <p>Bu yerdagi o'zgarishlar saytda darhol ko'rinadi — kod ochish shart emas.</p>
+      </div>
+
+      <form id="settingsForm" class="glass upload-form">
+        <h3 class="form-subhead">Men haqimda</h3>
+        <label>Sarlavha
+          <input type="text" id="sAboutHeading" placeholder="Salom, men Yusufman">
+        </label>
+        <label>1-paragraf
+          <textarea id="sAboutText1" rows="3" placeholder="Ijodiy his-tuyg'u bilan..."></textarea>
+        </label>
+        <label>2-paragraf
+          <textarea id="sAboutText2" rows="3" placeholder="Har bir loyiha..."></textarea>
+        </label>
+
+        <div class="field-row three">
+          <label>Statistika 1 — son <input type="text" id="sStat1Value" placeholder="3+"></label>
+          <label>Statistika 1 — nomi <input type="text" id="sStat1Label" placeholder="yo'nalish"></label>
+        </div>
+        <div class="field-row three">
+          <label>Statistika 2 — son <input type="text" id="sStat2Value" placeholder="∞"></label>
+          <label>Statistika 2 — nomi <input type="text" id="sStat2Label" placeholder="g'oyalar"></label>
+        </div>
+        <div class="field-row three">
+          <label>Statistika 3 — son <input type="text" id="sStat3Value" placeholder="1"></label>
+          <label>Statistika 3 — nomi <input type="text" id="sStat3Label" placeholder="portfolio"></label>
+        </div>
+
+        <h3 class="form-subhead" style="margin-top:20px;">Aloqa</h3>
+        <div class="field-row">
+          <label>Telegram <input type="text" id="sTelegram" placeholder="@yuuvsuf"></label>
+          <label>Instagram <input type="text" id="sInstagram" placeholder="@yuuvsuf"></label>
+        </div>
+        <div class="field-row">
+          <label>Email <input type="text" id="sEmail" placeholder="hello@yuuvsuf.com"></label>
+          <label>Telefon <input type="text" id="sPhone" placeholder="+998 90 000 00 00"></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="settingsSaveBtn">Saqlash</button>
+        <p id="settingsStatus" class="status-text"></p>
+      </form>
     </div>
-    <div id="itemsList" class="items-list"></div>
+
+    <!-- ===== STATS TAB ===== -->
+    <div class="admin-panel" data-admin-panel="stats">
+      <div class="panel-head">
+        <span class="eyebrow">Statistika</span>
+        <h2>Sayt tashriflari</h2>
+        <p>Anonim hisoblanadi — shaxsiy ma'lumot saqlanmaydi.</p>
+      </div>
+      <div class="stats-grid" id="statsGrid">
+        <div class="glass stats-card"><b id="statTotal">—</b><span>Jami tashrif</span></div>
+        <div class="glass stats-card"><b id="statUnique">—</b><span>Taxminiy noyob tashrifchi</span></div>
+        <div class="glass stats-card"><b id="stat7d">—</b><span>So'nggi 7 kun</span></div>
+        <div class="glass stats-card"><b id="statToday">—</b><span>Bugun</span></div>
+      </div>
+    </div>
 
   </section>
 
