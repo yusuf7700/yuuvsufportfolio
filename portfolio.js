@@ -20,7 +20,78 @@ document.addEventListener('DOMContentLoaded', () => {
     body.setAttribute('data-theme', theme);
   }
 
-  /* ---------- generic tab controller ----------
+  /* ---------- shared Supabase client (content + settings + analytics) ---------- */
+  const sbClient = (typeof SUPABASE_IS_CONFIGURED !== 'undefined' && SUPABASE_IS_CONFIGURED && typeof supabase !== 'undefined')
+    ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+  /* ---------- anonymous view tracking ---------- */
+  function getVisitorId(){
+    try{
+      let id = localStorage.getItem('yuuvsuf_visitor_id');
+      if (!id){
+        id = 'v_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        localStorage.setItem('yuuvsuf_visitor_id', id);
+      }
+      return id;
+    } catch(e){
+      return 'v_anon';
+    }
+  }
+
+  function logPageView(){
+    if (!sbClient) return;
+    sbClient.from('page_views').insert({ visitor_id: getVisitorId() }).then(() => {}).catch(() => {});
+  }
+  logPageView();
+
+  /* ---------- site settings (About + Contact), loaded from Supabase if available ---------- */
+  async function loadSiteSettings(){
+    if (!sbClient) return;
+    try{
+      const { data, error } = await sbClient.from('site_settings').select('*').eq('id', 1).single();
+      if (error || !data) return;
+
+      const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el && value) el.textContent = value;
+      };
+      setText('aboutHeading', data.about_heading);
+      setText('aboutText1', data.about_text1);
+      setText('aboutText2', data.about_text2);
+
+      const statRow = document.getElementById('statRow');
+      const stats = [
+        [data.stat1_value, data.stat1_label],
+        [data.stat2_value, data.stat2_label],
+        [data.stat3_value, data.stat3_label]
+      ].filter(([v, l]) => v && l);
+      if (statRow && stats.length){
+        statRow.innerHTML = stats.map(([v, l]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
+      }
+
+      const contactMap = {
+        telegram: { link: v => `https://t.me/${v.replace('@','')}`, label: v => v },
+        instagram: { link: v => `https://instagram.com/${v.replace('@','')}`, label: v => v },
+        email: { link: v => `mailto:${v}`, label: v => v },
+        phone: { link: v => `tel:${v.replace(/\s/g,'')}`, label: v => v }
+      };
+      document.querySelectorAll('[data-contact]').forEach(card => {
+        const key = card.getAttribute('data-contact');
+        const value = data[`contact_${key}`];
+        if (value && contactMap[key]){
+          card.href = contactMap[key].link(value);
+          const span = card.querySelector('[data-field="value"]');
+          if (span) span.textContent = contactMap[key].label(value);
+        }
+      });
+    } catch(e){
+      console.warn('Site settings could not be loaded', e);
+    }
+  }
+  loadSiteSettings();
+
+
      Works for the main header nav (controls top-level .tab-panel
      elements inside <main class="tab-shell">) and for any nested
      [data-tabs] block (e.g. Posterlar / Muqovalar / Avatarlar). */
@@ -67,10 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- content source: Supabase (live) with local data.js fallback ---------- */
-  const sbClient = (typeof SUPABASE_IS_CONFIGURED !== 'undefined' && SUPABASE_IS_CONFIGURED && typeof supabase !== 'undefined')
-    ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-    : null;
-
   function emptyStructure(){
     return {
       websites: [],
@@ -85,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const { data, error } = await sbClient
         .from('portfolio_items')
         .select('*')
+        .eq('published', true)
         .order('sort_order', { ascending: true })
         .order('created_at', { ascending: true });
       if (error || !data) return null;
