@@ -1,122 +1,193 @@
-/* Admin panel — reuses tokens from portfolio.css */
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuuvsuf — Admin</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portfolio.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body data-theme="dark">
 
-.admin-shell{ padding-block: 60px 100px; min-height: 70vh; }
+<div class="ambient"></div>
 
-.login-wrap{
-  min-height: 60vh; display:flex; align-items:center; justify-content:center;
-}
-.login-card{
-  width: min(420px, 100%);
-  padding: 36px;
-}
-.login-card h2{
-  font-family: var(--font-display); font-size:1.6rem; font-weight:600; margin: 10px 0 6px;
-}
-.muted{ color: var(--text-mid); font-size:.92rem; margin-bottom:24px; }
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="portfolio.html" class="brand">
+      <img src="logo.png" alt="Yuuvsuf logo" class="brand-mark">
+      Yuuvsuf <span style="color:var(--text-mid); font-weight:400; font-size:.8rem;">/ admin</span>
+    </a>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" id="logoutBtn" style="display:none;">Chiqish</button>
+    </div>
+  </div>
+</header>
 
-#loginForm label, .upload-form label{
-  display:block; font-size:.82rem; color: var(--text-mid); margin-bottom:16px;
-}
-#loginForm input, .upload-form input, .upload-form select{
-  display:block; width:100%; margin-top:8px;
-  padding: 11px 14px; border-radius: 12px;
-  background: var(--surface-strong); border:1px solid var(--border);
-  color: var(--text-hi); font-family: var(--font-body); font-size:.95rem;
-}
-#loginForm input:focus, .upload-form input:focus, .upload-form select:focus{
-  outline: none; border-color: var(--border-strong);
-}
+<main class="container admin-shell">
 
-.error-text{ color:#ff8e8e; font-size:.85rem; margin-top:14px; min-height: 1.2em; }
-.status-text{ color: var(--teal-bright); font-size:.85rem; margin-top:14px; min-height: 1.2em; }
+  <!-- config warning -->
+  <div id="configWarning" class="glass note-card" style="display:none; margin-block:24px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+    <span><code>supabase-config.js</code> hali sozlanmagan. SETUP.md faylidagi qadamlarni bajaring, so'ng bu sahifani qayta yuklang.</span>
+  </div>
 
-.upload-form{ padding: 30px; }
-.field-row{ display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+  <!-- login -->
+  <section id="loginScreen" class="login-wrap">
+    <div class="glass login-card">
+      <span class="eyebrow">Admin kirish</span>
+      <h2>Xush kelibsiz</h2>
+      <p class="muted">Faqat oldindan qo'shilgan admin hisoblari kira oladi.</p>
+      <form id="loginForm">
+        <label>Email
+          <input type="email" id="loginEmail" required autocomplete="username">
+        </label>
+        <label>Parol
+          <input type="password" id="loginPassword" required autocomplete="current-password">
+        </label>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Kirish</button>
+        <p id="loginError" class="error-text"></p>
+      </form>
+    </div>
+  </section>
 
-.items-list{ display:grid; grid-template-columns: repeat(4, 1fr); gap:18px; margin-top:24px; }
-.item-card{
-  padding: 14px; position: relative;
-}
-.item-card .card-media{ aspect-ratio: 4/3; margin-bottom:12px; }
-.item-card h4{ font-size:.9rem; font-weight:600; font-family: var(--font-display); }
-.item-card .meta{ color: var(--text-low); font-size:.72rem; font-family: var(--font-mono); text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
-.item-actions{
-  position:absolute; top:10px; right:10px; z-index:2;
-  display:flex; gap:6px;
-}
-.item-icon-btn{
-  width:30px; height:30px; border-radius:50%;
-  background: rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.2);
-  color:#eafffb; display:flex; align-items:center; justify-content:center;
-  transition: background .2s, transform .2s;
-}
-.item-icon-btn svg{ width:14px; height:14px; }
-.item-icon-btn:hover{ background: rgba(63,215,201,0.35); transform: scale(1.06); }
-.item-icon-btn.danger:hover{ background: rgba(255,60,60,0.35); color:#ffb4b4; }
-.item-title{ font-size:.9rem; font-weight:600; font-family: var(--font-display); }
+  <!-- dashboard -->
+  <section id="dashboard" class="dashboard" style="display:none;">
 
-.edit-form{ display:flex; flex-direction:column; gap:12px; }
-.edit-form label{ font-size:.78rem; color: var(--text-mid); margin-bottom:0; }
-.edit-form input{
-  display:block; width:100%; margin-top:6px;
-  padding: 9px 12px; border-radius: 10px;
-  background: var(--surface-strong); border:1px solid var(--border);
-  color: var(--text-hi); font-size:.88rem;
-}
-.edit-actions{ display:flex; gap:8px; margin-top:4px; }
-.edit-actions .btn{ padding: 8px 16px; font-size:.82rem; }
+    <div class="tab-buttons admin-tabs" id="adminTabs">
+      <button class="tab-btn active" data-admin-tab="content">Kontent</button>
+      <button class="tab-btn" data-admin-tab="settings">Sayt sozlamalari</button>
+      <button class="tab-btn" data-admin-tab="stats">Statistika</button>
+    </div>
 
-#itemFilters{ margin-top: 8px; }
+    <!-- ===== CONTENT TAB ===== -->
+    <div class="admin-panel active" data-admin-panel="content">
 
-/* ---------- top-level admin tabs ---------- */
-.admin-tabs{ margin-bottom: 36px; }
-.admin-panel{ display:none; }
-.admin-panel.active{ display:block; animation: panelIn .35s var(--ease); }
-@keyframes panelIn{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none; } }
+      <div class="panel-head">
+        <span class="eyebrow">Yangi ish qo'shish</span>
+        <h2>Rasm yoki video yuklash</h2>
+        <p>Kategoriyani tanlang, faylni tanlang, nom yozing — tayyor.</p>
+      </div>
 
-/* ---------- search ---------- */
-.search-input{
-  display:block; width:100%; max-width:360px; margin: 18px 0 14px;
-  padding: 10px 14px; border-radius: 12px;
-  background: var(--surface-strong); border:1px solid var(--border);
-  color: var(--text-hi); font-size:.9rem;
-}
-.search-input:focus{ outline:none; border-color: var(--border-strong); }
+      <form id="uploadForm" class="glass upload-form">
+        <div class="field-row">
+          <label>Kategoriya
+            <select id="fCategory" required>
+              <option value="websites">Saytlar</option>
+              <option value="design:posterlar">Dizayn — Posterlar</option>
+              <option value="design:muqovalar">Dizayn — Muqovalar</option>
+              <option value="design:avatarlar">Dizayn — Avatarlar</option>
+              <option value="aivideo:reels">AI Video — Reels</option>
+              <option value="aivideo:multfilmlar">AI Video — Multfilmlar</option>
+            </select>
+          </label>
+          <label>Nomi
+            <input type="text" id="fTitle" placeholder="Masalan: Yangi poster" required>
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Fayl (rasm yoki video)
+            <input type="file" id="fFile" accept="image/*,video/*" required>
+          </label>
+          <label id="fLinkLabel">Havola (ixtiyoriy)
+            <input type="url" id="fLink" placeholder="https://...">
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" id="uploadBtn">Yuklash</button>
+        <p id="uploadStatus" class="status-text"></p>
+      </form>
 
-/* ---------- settings form extras ---------- */
-.form-subhead{
-  font-family: var(--font-display); font-size:1rem; font-weight:600;
-  color: var(--text-hi); margin-bottom: 6px;
-}
-.upload-form textarea{
-  display:block; width:100%; margin-top:8px; resize:vertical;
-  padding: 11px 14px; border-radius: 12px;
-  background: var(--surface-strong); border:1px solid var(--border);
-  color: var(--text-hi); font-family: var(--font-body); font-size:.95rem;
-}
-.upload-form textarea:focus{ outline:none; border-color: var(--border-strong); }
-.field-row.three{ grid-template-columns: 1fr 1fr; }
+      <div class="panel-head" style="margin-top:56px;">
+        <span class="eyebrow">Mavjud ishlar</span>
+        <h2>Qo'shilgan kontent</h2>
+        <p>✎ tahrirlash, 👁 yashirish/ko'rsatish, ✕ o'chirish. Kartochkani ushlab boshqa joyga surib tartibni o'zgartirasiz.</p>
+      </div>
 
-/* ---------- stats ---------- */
-.stats-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:18px; margin-top:24px; }
-.stats-card{ padding:26px; text-align:center; }
-.stats-card b{ display:block; font-family: var(--font-display); font-size:2rem; color: var(--teal-bright); }
-.stats-card span{ font-size:.85rem; color: var(--text-mid); }
+      <input type="text" id="itemSearch" class="search-input" placeholder="Nomi bo'yicha qidirish...">
 
-/* ---------- publish toggle + drag reorder ---------- */
-.item-card.unpublished{ opacity: .45; }
-.item-card.unpublished::after{
-  content: "Yashirilgan"; position:absolute; bottom:10px; left:10px;
-  font-family: var(--font-mono); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase;
-  color: var(--text-low); background: rgba(0,0,0,0.5); padding:3px 8px; border-radius:999px;
-}
-.item-card[draggable="true"]{ cursor: grab; }
-.item-card.dragging{ opacity:.35; }
-.item-card.drag-over{ outline: 2px dashed var(--teal-bright); outline-offset: 3px; }
+      <div class="tab-buttons" id="itemFilters">
+        <button class="tab-btn active" data-filter="all">Hammasi</button>
+        <button class="tab-btn" data-filter="websites">Saytlar</button>
+        <button class="tab-btn" data-filter="design:posterlar">Posterlar</button>
+        <button class="tab-btn" data-filter="design:muqovalar">Muqovalar</button>
+        <button class="tab-btn" data-filter="design:avatarlar">Avatarlar</button>
+        <button class="tab-btn" data-filter="aivideo:reels">Reels</button>
+        <button class="tab-btn" data-filter="aivideo:multfilmlar">Multfilmlar</button>
+      </div>
+      <div id="itemsList" class="items-list"></div>
+    </div>
 
-@media (max-width: 720px){
-  .field-row{ grid-template-columns: 1fr; }
-  .field-row.three{ grid-template-columns: 1fr; }
-  .items-list{ grid-template-columns: repeat(2,1fr); }
-  .stats-grid{ grid-template-columns: repeat(2,1fr); }
-}
+    <!-- ===== SETTINGS TAB ===== -->
+    <div class="admin-panel" data-admin-panel="settings">
+      <div class="panel-head">
+        <span class="eyebrow">Sayt matnlari</span>
+        <h2>"Men haqimda" va "Aloqa"</h2>
+        <p>Bu yerdagi o'zgarishlar saytda darhol ko'rinadi — kod ochish shart emas.</p>
+      </div>
+
+      <form id="settingsForm" class="glass upload-form">
+        <h3 class="form-subhead">Men haqimda</h3>
+        <label>Sarlavha
+          <input type="text" id="sAboutHeading" placeholder="Salom, men Yusufman">
+        </label>
+        <label>1-paragraf
+          <textarea id="sAboutText1" rows="3" placeholder="Ijodiy his-tuyg'u bilan..."></textarea>
+        </label>
+        <label>2-paragraf
+          <textarea id="sAboutText2" rows="3" placeholder="Har bir loyiha..."></textarea>
+        </label>
+
+        <div class="field-row three">
+          <label>Statistika 1 — son <input type="text" id="sStat1Value" placeholder="3+"></label>
+          <label>Statistika 1 — nomi <input type="text" id="sStat1Label" placeholder="yo'nalish"></label>
+        </div>
+        <div class="field-row three">
+          <label>Statistika 2 — son <input type="text" id="sStat2Value" placeholder="∞"></label>
+          <label>Statistika 2 — nomi <input type="text" id="sStat2Label" placeholder="g'oyalar"></label>
+        </div>
+        <div class="field-row three">
+          <label>Statistika 3 — son <input type="text" id="sStat3Value" placeholder="1"></label>
+          <label>Statistika 3 — nomi <input type="text" id="sStat3Label" placeholder="portfolio"></label>
+        </div>
+
+        <h3 class="form-subhead" style="margin-top:20px;">Aloqa</h3>
+        <div class="field-row">
+          <label>Telegram <input type="text" id="sTelegram" placeholder="@yuuvsuf"></label>
+          <label>Instagram <input type="text" id="sInstagram" placeholder="@yuuvsuf"></label>
+        </div>
+        <div class="field-row">
+          <label>Email <input type="text" id="sEmail" placeholder="hello@yuuvsuf.com"></label>
+          <label>Telefon <input type="text" id="sPhone" placeholder="+998 90 000 00 00"></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="settingsSaveBtn">Saqlash</button>
+        <p id="settingsStatus" class="status-text"></p>
+      </form>
+    </div>
+
+    <!-- ===== STATS TAB ===== -->
+    <div class="admin-panel" data-admin-panel="stats">
+      <div class="panel-head">
+        <span class="eyebrow">Statistika</span>
+        <h2>Sayt tashriflari</h2>
+        <p>Anonim hisoblanadi — shaxsiy ma'lumot saqlanmaydi.</p>
+      </div>
+      <div class="stats-grid" id="statsGrid">
+        <div class="glass stats-card"><b id="statTotal">—</b><span>Jami tashrif</span></div>
+        <div class="glass stats-card"><b id="statUnique">—</b><span>Taxminiy noyob tashrifchi</span></div>
+        <div class="glass stats-card"><b id="stat7d">—</b><span>So'nggi 7 kun</span></div>
+        <div class="glass stats-card"><b id="statToday">—</b><span>Bugun</span></div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
